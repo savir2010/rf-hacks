@@ -1,0 +1,203 @@
+/* Reset default styles for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic styling for the entire page */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #e0e0e0; /* Light grey background */
+    color: white; /* White text for better contrast */
+}
+
+/* Logo Styles */
+#logo {
+    width: 100px;  /* Adjust width to fit your design */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 15px;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    color: white; /* White text */
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transition: color 0.3s ease-in-out;
+}
+
+.logo a:hover {
+    color: #bdbdbd; /* Lighter grey hover effect */
+}
+
+.logo span {
+    color: #616161; /* Lighter grey color for "ERBERUS" */
+}
+
+/* Header */
+.header {
+    background-color: #424242; /* Dark grey background */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation */
+.nav-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+}
+
+.nav-list li {
+    margin-left: 30px;
+}
+
+.nav-list a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-list a:hover {
+    color: #bdbdbd; /* Lighter grey on hover */
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* Main Section (Full-screen Question) */
+.full-screen-question {
+    background-color: #616161; /* Medium grey for section */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding-top: 80px; /* Adjusted for header height */
+}
+
+.question-text {
+    font-size: 36px;
+    color: white; /* White text */
+    text-align: center;
+    padding: 0 20px;
+    line-height: 1.4;
+    font-weight: 600;
+    max-width: 800px;
+}
+
+/* Container */
+.container {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* Button container (for actions like "Start" and "Next") */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.button-container button {
+    margin: 0 15px; /* Add spacing between buttons */
+}
+
+/* Button Styling */
+button {
+    background-color: #757575; /* Medium grey for buttons */
+    border: none;
+    color: white; /* White text */
+    padding: 15px 32px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50px; /* Rounded buttons */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #bdbdbd; /* Lighter grey on hover */
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+/* Grid layout for answer buttons in a 2x2 matrix */
+.answer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows */
+    gap: 20px; /* Spacing between the buttons */
+    margin-top: 30px;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Styling each answer button to look normal and fit the grid */
+.answer-button {
+    background-color: #424242; /* Dark grey background */
+    border-radius: 10px;
+    text-align: center;
+    color: white; /* White text */
+    font-size: 18px; /* Smaller text size */
+    padding: 15px 20px; /* Adjust padding for a normal button size */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center the text inside the button */
+    height: 100%; /* Ensure the button fits within the grid cell */
+}
+
+.answer-button:hover {
+    background-color: #616161; /* Lighter grey on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.answer-button:active {
+    background-color: #757575; /* Slightly darker grey when active */
+}
+
+.answer-button.correct {
+    background-color: #81c784; /* Light green for correct answer */
+}
+
+.answer-button.incorrect {
+    background-color: #e57373; /* Light red for incorrect answer */
+}
+
+/* Media query for small screens */
+@media (max-width: 600px) {
+    .answer-grid {
+        grid-template-columns: 1fr; /* Stack answers vertically on small screens */
+        grid-template-rows: 1fr; /* One row */
+    }
+
+    .answer-button {
+        font-size: 16px; /* Smaller font on mobile */
+        padding: 12px 15px; /* Adjust padding for smaller screens */
+    }
+
+    .question-text {
+        font-size: 24px;
+    }
+
+    .button-container button {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+}
