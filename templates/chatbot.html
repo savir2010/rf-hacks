@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Chatbot for Students</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="/">
+                <img src="/static/logo.png" alt="Logo" id="logo">
+                <strong>C<span>ERBERUS</span></strong>
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/">Home</a></li>
+                <li><a href="/focus">Focus</a></li>
+                <li><a href="/calender">Tasks</a></li>
+            </ul>
+        </nav>
+    </header>
+  <main class="chatbot-container">
+        <div class="chatbox" id="chatbox">
+            <div class="chat-message bot">
+                <p>Welcome to HEALTH! How are you doing today?</p>
+            </div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="What's on your mind?">
+            <button onclick="sendMessage()">Send</button>
+            <button onclick="clearChat()">Clear</button>
+            <button onclick="startMic()">Start Mic</button>
+        </div>
+    </main>
+    <footer class="chatbot-footer">
+        <p>Remember, we're here for you. If you need immediate help, please reach out to a professional.</p>
+    </footer>
+
+    <script>
+        function speakText(text) {
+            const speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            speech.lang = 'en-US';  // Set language (can be changed)
+            speech.pitch = 1;       // Set pitch of voice
+            speech.rate = 1;        // Set speed of speech
+            speech.volume = 1;      // Set volume level
+
+            // Speak the text
+            window.speechSynthesis.speak(speech);
+        }
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value;
+            if (message.trim() !== '') {
+                const chatbox = document.getElementById('chatbox');
+                
+                // Display the user's message
+                chatbox.innerHTML += `<div class="chat-message user"><p>${message}</p></div>`;
+                userInput.value = '';  // Clear input
+
+                // Send the message to Flask for processing
+                fetch('/process_message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const botMessage = data.response || "Sorry, I couldn't process your request.";
+                    chatbox.innerHTML += `<div class="chat-message bot"><p>${botMessage}</p></div>`;
+                    chatbox.scrollTop = chatbox.scrollHeight;
+
+                    // Speak the bot's response
+                    speakText(botMessage);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    chatbox.innerHTML += `<div class="chat-message bot"><p>There was an error processing your message.</p></div>`;
+                    chatbox.scrollTop = chatbox.scrollHeight;
+                });
+            }
+        }
+        function clearChat() {
+            // This function will clear the chatbox
+            document.getElementById('chatbox').innerHTML = '<div class="chat-message bot"><p>Welcome to MindEase! How are you feeling today?</p></div>';
+            document.getElementById('userInput').value = '';
+        }
+        function startMic() {
+            const chatbox = document.getElementById('chatbox');
+            chatbox.innerHTML += `<div class="chat-message user"><p>Listening...</p></div>`;
+            
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+
+            recognition.start();  // Start speech recognition
+
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript;  // Get the speech text
+                chatbox.innerHTML += `<div class="chat-message user"><p>${speechResult}</p></div>`;
+                
+                // Send recognized speech to Flask
+                fetch('/process_message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: speechResult })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const botMessage = data.response || "Sorry, I couldn't process your request.";
+                    chatbox.innerHTML += `<div class="chat-message bot"><p>${botMessage}</p></div>`;
+                    chatbox.scrollTop = chatbox.scrollHeight;
+
+                    // Speak the bot's response
+                    speakText(botMessage);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    chatbox.innerHTML += `<div class="chat-message bot"><p>There was an error processing your message.</p></div>`;
+                    chatbox.scrollTop = chatbox.scrollHeight;
+                });
+            };
+
+            recognition.onerror = function(event) {
+                console.error("Speech recognition error", event);
+                chatbox.innerHTML += `<div class="chat-message bot"><p></p></div>`;
+                chatbox.scrollTop = chatbox.scrollHeight;
+            };
+        }
+    
+    </script>
+    </div>
+
+</body>
+</html>

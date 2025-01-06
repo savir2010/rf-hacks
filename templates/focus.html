@@ -1,0 +1,97 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CERBERUS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/focus.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="/">
+                <img src="/static/logo.png" alt="Logo" id="logo">
+                <strong>C<span>ERBERUS</span></strong>
+            </a>        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/">Home</li>
+                <li><a href="/chatbot">Chatbot</a></li>
+                <li><a href="/calender">Tasks</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="full-screen-question">
+        <div id="questionText" class="question-text" data-choice="{{ question }}">{{ question }} </div> 
+    <div class="container">
+        <p id="topicDisplay"></p> <!-- Paragraph to display the topic -->
+        <h1>Real-Time Focus Detection</h1>
+
+        <div>
+            <h2>Live Feed:</h2>
+            <img src="/video_feed" alt="Live Feed" style="width: 100%; max-width: 640px; height: auto;">
+        </div>
+        <form action="/shutdown" method="get">
+            <button type="submit">Stop Detection</button>
+        </form>
+        <div class="button-container">
+            <form action="/focus" method="POST">
+                <label for="topic">Enter a topic:</label>
+                <input type="text" id="topic" name="topic" required>
+                <button type="submit" >Generate Quiz</button>
+            </form>
+        </div>
+            <!-- {% if question %} -->
+                <h3><div id="result"></div></h3>
+                <form action="/focus" method="POST"></form>
+                
+                    <div id="answerGrid">
+                        <button id="answer1" class="answer-button" data-answer="{{ choice1 }}">{{ choice1 }}</button>
+                        <button id="answer2" class="answer-button" data-answer="{{ choice2 }}">{{ choice2 }}</button>
+                        <button id="answer3" class="answer-button" data-answer="{{ choice3 }}">{{ choice3 }}</button>
+                        <button id="answer4" type="submit" class="answer-button" data-answer="{{ correct_answer }}">{{ correct_answer }}</button>
+                    </div>
+                </form>
+                <form action="/focus" method="POST">
+                    <label for="topic" id="topic"></label>
+                    <button type="submit" >Next Question</button>
+                </form>
+            <!-- {% endif %} -->
+            <script>
+            function bindAnswerEvents() {
+                const answerButtons = document.querySelectorAll('.answer-button');
+                const resultDisplay = document.getElementById('result');
+
+                answerButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        // Get the selected answer and correct answer
+                        const selectedAnswer = this.getAttribute('data-answer');
+                        const correctAnswer = document.getElementById('answer4').getAttribute('data-answer');
+
+                        // Check the answer
+                        if (selectedAnswer === correctAnswer) {
+                            resultDisplay.innerText = "Correct! Well done.";
+                            resultDisplay.style.color = 'green';
+                        } else {
+                            resultDisplay.innerText = "Incorrect. Try again!";
+                            resultDisplay.style.color = 'red';
+                        }
+
+                        // Generate a new question after 2 seconds
+                    setTimeout(() => {
+                        resetAnswerStyles()
+                        fetchNewQuestion();
+                    }, 2000);
+                    });
+                });
+                }
+            
+            const topic = document.getElementById('topic').value;
+            const topicDisplay = document.getElementById('topicDisplay');
+            topicDisplay.innerText = `You entered: ${topic}`;
+            bindAnswerEvents(); 
+            </script>
+        </div>
+</body>
+</html>

@@ -3,16 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Focus Detection</title>
+    <title>CERBERUS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Real-Time Focus Detection</h1>
-    <div>
-        <h2>Live Feed:</h2>
-        <img src="/video_feed" alt="Live Feed" style="width: 100%; max-width: 640px; height: auto;">
-    </div>
-    <form action="/shutdown" method="get">
-        <button type="submit">Stop Detection</button>
-    </form>
+    <header class="header">
+        <div class="logo">
+            <a href="/">
+                <img src="/static/logo.png" alt="Logo" id="logo">
+                <strong>C<span>ERBERUS</span></strong>
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="/focus">Focus</a></li>
+                <li><a href="/chatbot">Chatbot</a></li>
+                <li><a href="/calender">Tasks</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="hero">
+            <h1>Welcome to CERBERUS</h1>
+            <p>Explore our unique functionalities designed for efficiency and innovation in education.</p>
+            <div class="cta-buttons">
+                <a href="/focus" class="cta-button">Focus</a>
+                <a href="/chatbot" class="cta-button">Chatbot</a>
+                <a href="/calender" class="cta-button">Tasks</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 CERBERUS All rights reserved.</p>
+    </footer>
 </body>
 </html>
