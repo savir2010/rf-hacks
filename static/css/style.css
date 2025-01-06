@@ -1,0 +1,243 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 2;
+    color: #4d4d4d;  /* Light grey text color */
+    background-color: #f2f2f2;  /* Very light grey background */
+    transition: background-color 0.3s ease;
+}
+
+/* Header styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #ffffff;  /* White background */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);  /* Lighter shadow */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.logo a {
+    text-decoration: none;
+    color: #7f7f7f;  /* Light grey */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #b3b3b3;  /* Even lighter grey */
+    font-weight: normal;
+}
+
+.nav-list {
+    display: flex;
+    list-style-type: none;
+}
+
+.nav-list li {
+    margin-left: 30px;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: #7f7f7f;  /* Light grey text */
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: color 0.3s ease, transform 0.2s ease;
+    position: relative;
+}
+
+.nav-list a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #7f7f7f;  /* Light grey underline */
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.nav-list a:hover::after {
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+/* Main content styles */
+.main-content {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero {
+    text-align: center;
+    padding: 40px 0;
+    background-color: #ffffff;  /* White background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);  /* Lighter shadow */
+    border-radius: 8px;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease;
+}
+
+.hero:hover {
+    transform: scale(1.01);
+}
+
+.hero h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #4d4d4d;  /* Light grey text */
+}
+
+.hero p {
+    font-size: 18px;
+    color: #999999;  /* Very light grey text */
+    margin-bottom: 30px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cta-button {
+    padding: 12px 30px;
+    background: #b3b3b3;  /* Very light grey button */
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);  /* Lighter shadow */
+}
+
+.cta-button:hover {
+    background: #a6a6a6;  /* Slightly darker grey button on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Lighter shadow on hover */
+}
+
+/* Footer styles */
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #b3b3b3;  /* Light grey footer */
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 7.5%;
+}
+
+/* Logo Styles */
+#logo {
+    width: 120px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+}
+
+/* New feature: Dark mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #333333;  /* Dark background */
+        color: #f2f2f2;  /* Light text */
+    }
+
+    .header {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-list a {
+        color: #e0e0e0;
+    }
+
+    .nav-list a::after {
+        background-color: #e0e0e0;
+    }
+
+    .hero {
+        background-color: #444444;  /* Darker background */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-button {
+        background: #e0e0e0;
+        color: #333333;
+        box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+    }
+
+    .cta-button:hover {
+        background: #d1d1d1;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+    }
+
+    .footer {
+        background: #333333;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    .nav-list {
+        margin-top: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-list li {
+        margin: 10px 15px;
+    }
+
+    .hero {
+        padding: 20px;
+    }
+
+    .hero h1 {
+        font-size: 24px;
+    }
+
+    .cta-button {
+        padding: 10px 20px;
+    }
+}
+.hero h1 {
+    font-size: 48px;  /* Increased font size for more prominence */
+    font-weight: 700;  /* Bold font weight for emphasis */
+    color: #333333;  /* Darker grey for strong contrast */
+    margin-bottom: 20px;
+    text-transform: uppercase;  /* Capitalize for added impact */
+    letter-spacing: 2px;  /* Slightly increased letter spacing for a cleaner look */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);  /* Soft shadow to add depth */
+    transition: transform 0.3s ease-in-out;
+}
+
+.hero h1:hover {
+    transform: scale(1.05);  /* Slight scale-up effect on hover */
+}
